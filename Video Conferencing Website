@@ -1,0 +1,157 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Social Media Site</title>
+    <style>
+      /* CSS styling */
+    </style>
+  </head>
+  <body>
+    <h1>Social Media Site</h1>
+
+    <div id="user-registration">
+      <h2>Registration</h2>
+      <form id="registration-form">
+        <input type="text" id="username-input" placeholder="Username" />
+        <input type="password" id="password-input" placeholder="Password" />
+        <button type="submit">Register</button>
+      </form>
+    </div>
+
+    <div id="user-login">
+      <h2>Login</h2>
+      <form id="login-form">
+        <input type="text" id="username-input" placeholder="Username" />
+        <input type="password" id="password-input" placeholder="Password" />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <div id="messaging">
+      <h2>Messaging</h2>
+      <div id="message-list"></div>
+      <form id="message-form">
+        <input type="text" id="message-input" placeholder="Type a message" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+
+    <div id="task-assignment">
+      <h2>Task Assignment</h2>
+      <form id="task-form">
+        <input type="text" id="task-name-input" placeholder="Task name" />
+        <input type="text" id="assignee-input" placeholder="Assignee" />
+        <input type="date" id="due-date-input" placeholder="Due date" />
+        <textarea id="task-description-input" placeholder="Task description"></textarea>
+        <button type="submit">Assign Task</button>
+      </form>
+    </div>
+
+    <script>
+      // Client-side JavaScript code
+
+      // User registration form
+      const registrationForm = document.getElementById('registration-form');
+      registrationForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        // Retrieve form data
+        const username = document.getElementById('username-input').value;
+        const password = document.getElementById('password-input').value;
+        // Send registration request to the server
+        fetch('/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            // Handle registration success or failure
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      });
+
+      // User login form
+      const loginForm = document.getElementById('login-form');
+      loginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        // Retrieve form data
+        const username = document.getElementById('username-input').value;
+        const password = document.getElementById('password-input').value;
+        // Send login request to the server
+        fetch('/users/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            // Handle login success or failure
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      });
+
+      // Messaging form
+      const messageForm = document.getElementById('message-form');
+      messageForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        // Retrieve form data
+        const message = document.getElementById('message-input').value;
+        // Send message to the server
+        fetch('/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            // Handle message sent successfully
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      });
+
+      // Task assignment form
+      const taskForm = document.getElementById('task-form');
+      taskForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        // Retrieve form data
+        const taskName = document.getElementById('task-name-input').value;
+        const assignee = document.getElementById('assignee-input').value;
+        const dueDate = document.getElementById('due-date-input').value;
+        const taskDescription = document.getElementById('task-description-input').value;
+        // Send task assignment request to the server
+        fetch('/tasks', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ taskName, assignee, dueDate, taskDescription }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            // Handle task assignment success or failure
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      });
+    </script>
+  </body>
+</html>
